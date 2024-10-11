@@ -344,7 +344,6 @@ def main(argv):
     test_dataloader = DataLoader(test_dataset, batch_size=args.test_batch_size, num_workers=args.num_workers, shuffle=False, pin_memory=(device == "cuda"))
 
     if args.model_name == "VBMIC":
-        # net = LDMIC(N=192, M=192, decode_atten=JointContextTransfer)
         net = VBMIC(N=64, M=64, decode_atten=JointContextTransfer)
     elif args.model_name == "VBMIC_VAE":
         net = VBMIC_VAE(N=96, M=192, decode_atten=JointContextTransfer)
