@@ -4,7 +4,7 @@ from torch import nn
 from compressai.models.utils import update_registered_buffers, conv, deconv
 from compressai.entropy_models import GaussianConditional
 from compressai.models import CompressionModel, get_scale_table
-from compressai.ops import quantize_ste
+from compressai.ops import ste_round as quantize_ste
 from compressai.layers import ResidualBlock, GDN, MaskedConv2d, conv3x3, ResidualBlockWithStride
 import torch.nn.functional as F
 import copy
