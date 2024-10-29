@@ -4,7 +4,7 @@ from torch import nn
 from compressai.models.utils import update_registered_buffers, conv, deconv
 from compressai.entropy_models import GaussianConditional
 from compressai.models import CompressionModel, get_scale_table
-from compressai.ops import quantize_ste
+from compressai.ops import ste_round as quantize_ste
 from compressai.layers import ResidualBlock, GDN, MaskedConv2d, conv3x3, ResidualBlockWithStride
 from deepspeed.profiling.flops_profiler import get_model_profile
 import torch.nn.functional as F
@@ -119,9 +119,9 @@ class EfficientAttention(nn.Module):
 
         key = F.softmax(keys, dim=2)
         queries = F.softmax(queries, dim=1)
-        context = key @ value.transpose(1, 2)
-        attended_values = (context.transpose(1, 2) @ query).reshape(n, -1, h, w)
-        reprojected_value = self.reprojection(aggregated_values)
+        context = key @ values.transpose(1, 2)
+        attended_values = (context.transpose(1, 2) @ queries).reshape(n, -1, h, w)
+        reprojected_value = self.reprojection(attended_values)
         attention = reprojected_value #+ target
         return attention
 
@@ -136,7 +136,8 @@ class VBMIC(nn.Module):
             GDN(N),
             conv(N, N, kernel_size=5, stride=2),
             GDN(N),
-            conv(N, M, kernel_size=5, stride=2)
+            conv(N, M, kernel_size=5, stride=2),
+            GDN(N)
         )
         self.hyperprior = Hyperprior(in_planes=M, mid_planes=N, out_planes=M*2)
         self.context_prediction = MaskedConv2d(
@@ -153,6 +154,7 @@ class VBMIC(nn.Module):
         self.M = M
         self.atten_3 = decode_atten(M)
         self.decoder_1 = nn.Sequential(
+            GDN(N, inverse=True),
             deconv(M, N, kernel_size=5, stride=2),
             GDN(N, inverse=True),
             deconv(N, N, kernel_size=5, stride=2),
@@ -435,10 +437,12 @@ class VBMIC_checkboard(nn.Module):
             GDN(N),
             conv(N, N, kernel_size=5, stride=2),
             GDN(N),
-            conv(N, M, kernel_size=5, stride=2)
+            conv(N, M, kernel_size=5, stride=2),
+            GDN(N),
         )
         self.atten_3 = decode_atten(M)
         self.decoder_1 = nn.Sequential(
+            GDN(N, inverse=True),
             deconv(M, N, kernel_size=5, stride=2),
             GDN(N, inverse=True),
             deconv(N, N, kernel_size=5, stride=2),
@@ -724,11 +728,13 @@ class Multi_VBMIC(nn.Module):
             GDN(N),
             conv(N, N, kernel_size=5, stride=2),
             GDN(N),
-            conv(N, M, kernel_size=5, stride=2)
+            conv(N, M, kernel_size=5, stride=2),
+            GDN(N)
         )
 
         self.atten_3 = decode_atten(M)
         self.decoder_1 = nn.Sequential(
+            GDN(N, inverse=True),
             deconv(M, N, kernel_size=5, stride=2),
             GDN(N, inverse=True),
             deconv(N, N, kernel_size=5, stride=2),
@@ -854,11 +860,13 @@ class Multi_VBMIC_checkboard(nn.Module):
             GDN(N),
             conv(N, N, kernel_size=5, stride=2),
             GDN(N),
-            conv(N, M, kernel_size=5, stride=2)
+            conv(N, M, kernel_size=5, stride=2),
+            GDN(N)
         )
     
         self.atten_3 = decode_atten(M)
         self.decoder_1 = nn.Sequential(
+            GDN(N, inverse=True),
             deconv(M, N, kernel_size=5, stride=2),
             GDN(N, inverse=True),
             deconv(N, N, kernel_size=5, stride=2),
