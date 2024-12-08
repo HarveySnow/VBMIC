@@ -41,6 +41,6 @@ Contributions to VBMIC are welcome! Please submit a pull request or open an issu
 - Junwei Zhou
 - Yuxuan Zhao
 - Yujie Song
-- Lei Zhou
+- Tian Xiang
 - Yanchao Yang
 - Jianwen Xiang
