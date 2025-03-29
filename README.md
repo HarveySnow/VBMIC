@@ -23,7 +23,7 @@ VBMIC is a novel lightweight model designed for efficient variable bitrate multi
 1. **Setup Environment**: Ensure Python 3.7 and necessary libraries (PyTorch, CompressAI) are installed.
 2. **Model Training**: Train the VBMIC model using the provided training scripts.
 3. **Compression**: Apply the trained model to compress multi-view images.
-4. **Decompression**: Decode compressed images using the VBMIC decoding process.
+4. **Decompression**: Decode compressed bitstream using the VBMIC decoding process.
 
 ## Contributing
 
