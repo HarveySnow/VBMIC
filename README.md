@@ -25,13 +25,6 @@ VBMIC is a novel lightweight model designed for efficient variable bitrate multi
 3. **Compression**: Apply the trained model to compress multi-view images.
 4. **Decompression**: Decode compressed images using the VBMIC decoding process.
 
-## Installation
-
-```text
-git clone https://github.com/HarveySnow/VBMIC.git
-cd VBMIC
-```
-
 ## Contributing
 
 Contributions to VBMIC are welcome! Please submit a pull request or open an issue for any improvements, bug fixes, or feature requests.
