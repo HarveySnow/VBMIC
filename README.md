@@ -27,7 +27,9 @@ VBMIC is a novel lightweight model designed for efficient variable bitrate multi
 
 ## Contributing
 
-Contributions to VBMIC are welcome! Please submit a pull request or open an issue for any improvements, bug fixes, or feature requests.
+Contributions to VBMIC are welcome! 
+
+Please submit a pull request or open an issue for any improvements, bug fixes, or feature requests.
 
 ## Acknowledgments
 
