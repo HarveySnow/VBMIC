@@ -28,3 +28,12 @@ VBMIC is a novel lightweight model designed for efficient variable bitrate multi
 ## Contributing
 
 Contributions to VBMIC are welcome! Please submit a pull request or open an issue for any improvements, bug fixes, or feature requests.
+
+## Acknowledgments
+
+This project benefits greatly from the open-source community and prior research work. We sincerely thank the following projects, standards, and communities:
+
+- **CompressAI**: For providing a powerful PyTorch-based library and toolchain for learned image and video compression, which greatly facilitates the development and evaluation of this project.
+- **Cityscapes, InStereo2K, and WildTrack**: For the public datasets used in experiments and evaluation.
+
+If any relevant work or resource has been inadvertently omitted, please feel free to contact us or open an issue, and we will update this acknowledgment accordingly.
