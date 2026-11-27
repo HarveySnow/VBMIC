@@ -38,4 +38,6 @@ This project benefits greatly from the open-source community and prior research 
 - **CompressAI**: For providing a powerful PyTorch-based library and toolchain for learned image and video compression, which greatly facilitates the development and evaluation of this project.
 - **Cityscapes, InStereo2K, and WildTrack**: For the public datasets used in experiments and evaluation.
 
+We also thank the broader open-source community for maintaining the tools, libraries, and benchmarks that make reproducible research and fair comparison possible.
+
 If any relevant work or resource has been inadvertently omitted, please feel free to contact us or open an issue, and we will update this acknowledgment accordingly.
